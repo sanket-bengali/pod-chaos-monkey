@@ -24,7 +24,7 @@ A simple application that deletes a randomly chosen pod from a given Kubernetes 
 * Apply Kustomize Yamls (for given environment) `kubectl apply -k ./kustomize/overlay/dev/ `
 * Verify the cronjob `kubectl get cronjob -n pod-chaos-monkey`
 * Verify the jobs (executed by the cronjob) `kubectl get job -n pod-chaos-monkey`
-* Wait for the Pod to become Running `kubectl get po -n pod-chaos-monkey`
+* Wait for the Pod to become Completed `kubectl get po -n pod-chaos-monkey`
 * Check Pod logs `kubectl logs <pod-id> -n pod-chaos-monkey`
 
 Below are pod_chaos_monkey application options (injected as environment variables to the K8s cronjob) :
