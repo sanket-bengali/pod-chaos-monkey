@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pod-chaos-monkey
+  labels:
+    app: pod-chaos-monkey
+spec:
+  schedule: "* * * * *"
+  successfulJobsHistoryLimit: 3 # how many completed jobs should be kept
+  failedJobsHistoryLimit: 2 # how many failed jobs should be kept
+  suspend: false # Here you can suspend cronjob without deleting it
+  concurrencyPolicy: Forbid # Choose Forbid if you don't want concurrent executions of your Job
+  startingDeadlineSeconds: 10 # if a job hasn't started in this many seconds, skip
+  jobTemplate:
+    metadata:
+      labels:
+        app: pod-chaos-monkey
+    spec:
+      parallelism: 1 # How many pods will be instantiated at once.
+      completions: 1 # How many containers of the job are instantiated one after the other (sequentially) inside the pod.
+      backoffLimit: 3 # Maximum pod restarts in case of failure
+      activeDeadlineSeconds: 30 # Limit the time for which a Job can continue to run
+      template:
+        metadata:
+          labels:
+            app: pod-chaos-monkey
+        spec:
+          serviceAccountName: pod-chaos-monkey
+          restartPolicy: Never # If you want to restart - use OnFailure
+          containers:
+            - name: pod-chaos-monkey
+              image: sanketbengali/pod-chaos-monkey:v0.0.1@sha256:0286a4b3dac7cd592dfd839593f1ffa860df20688040a8bcda75d0023c5ef131
+              imagePullPolicy: IfNotPresent
+#              envFrom:
+#                - configMapRef:
+#                    name: pod-chaos-monkey
+              env:
+              - name: NAMESPACE
+                value: workloads
+              - name: LOGLEVEL
+                value: info
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+---

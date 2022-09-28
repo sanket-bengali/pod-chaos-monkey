@@ -1,0 +1,8 @@
+[run]
+omit =
+    */app/tests*
+[report]
+omit =
+    */app/tests*
+exclude_lines =
+    if __name__ == .__main__.:

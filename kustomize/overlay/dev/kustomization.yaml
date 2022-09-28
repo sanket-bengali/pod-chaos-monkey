@@ -1,0 +1,9 @@
+bases:
+  - ../../base
+
+resources:
+  - resourcequota.yaml
+#  - configmap.yaml
+  - cronjob.yaml
+
+namespace: pod-chaos-monkey
