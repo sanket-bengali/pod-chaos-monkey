@@ -31,8 +31,8 @@ Below are pod_chaos_monkey application options (injected as environment variable
 
 | Key | Type | Default       | Description                      |
 |-----|------|---------------|----------------------------------|
-| config.loglevel | string | `"info"`      | log verbosity                    |
-| config.namespace | string | `"workloads"` | watched namespace                |
+| config.loglevel | string | `info`      | log verbosity                    |
+| config.namespace | string | `workloads` | watched namespace                |
 
 ## Run tests and linter
 
