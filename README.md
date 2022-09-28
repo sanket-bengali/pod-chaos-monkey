@@ -3,12 +3,12 @@ Deletes a randomly chosen pod from a given Kubernetes cluster namespace on given
 
 ## Pre-requisites
 * A Kubernetes cluster
-  * For ex. minikube (https://minikube.sigs.k8s.io/docs/start/)
-* An application in **workloads** namespace
-  * start a **nginx** deployment with `kubectl apply -f workload`
+  * For ex. [minikube](https://minikube.sigs.k8s.io/docs/start/)
+* An application running in **workloads** namespace
+  * For ex. start an **nginx** deployment with `kubectl apply -f workload`
 
 #### NOTE
-Kubernetes Python client is used : https://github.com/kubernetes-client/python 
+Used [Kubernetes Python client](https://github.com/kubernetes-client/python) to access Kube API
 
 ## Installation
 * Build image with `docker build -t <repository>/pod-chaos-monkey:<tag> .`
@@ -16,7 +16,10 @@ Kubernetes Python client is used : https://github.com/kubernetes-client/python
 * Push it to your registry `docker push <repository>/pod-chaos-monkey:<tag>`
 * Update the image repository, tag and SHA256 in Deployment Yaml (for given environment) `./kustomize/overlay/dev/cronjob.yaml`
 * `schedule` field in the cronjob.yaml is used to specify the Cron expression. For ex. `schedule: "* * * * *"` runs a job every minute.
-* More info : https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-schedule-syntax
+* More info on Cronjob : 
+* [Running Automated tasks with Cronjobs](https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/)
+* [Cron schedule syntax](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-schedule-syntax)
+* [Cronjob example with spec details](https://stackoverflow.com/questions/55510489/avoid-multiple-cron-jobs-running-for-one-cron-execution-point-in-kubernetes/62892617#62892617?newreg=ece92c4da5ca40df957f4337a0ce603a)
 * Create namespace `kubectl create ns pod-chaos-monkey`
 * Apply Kustomize Yamls (for given environment) `kubectl apply -k ./kustomize/overlay/dev/ `
 * Verify the cronjob `kubectl get cronjob -n pod-chaos-monkey`
@@ -50,3 +53,6 @@ Implement CI/CD pipeline (using Jenkins or similar) which includes :
 * Unit tests and coverage
 * Pylint
 * Kustomization deployment
+
+## License
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
