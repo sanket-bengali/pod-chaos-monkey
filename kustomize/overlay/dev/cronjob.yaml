@@ -5,7 +5,7 @@ metadata:
   labels:
     app: pod-chaos-monkey
 spec:
-  schedule: "* * * * *"
+  schedule: "* * * * *"  # https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-schedule-syntax
   successfulJobsHistoryLimit: 3 # how many completed jobs should be kept
   failedJobsHistoryLimit: 2 # how many failed jobs should be kept
   suspend: false # Here you can suspend cronjob without deleting it
