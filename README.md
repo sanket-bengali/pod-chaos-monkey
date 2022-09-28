@@ -1,5 +1,5 @@
 # Pod Chaos Monkey
-Deletes a randomly chosen pod from a given Kubernetes cluster namespace on given schedule
+A simple application that deletes a randomly chosen pod from a given Kubernetes namespace on given schedule
 
 ## Pre-requisites
 * A Kubernetes cluster
