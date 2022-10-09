@@ -56,7 +56,7 @@ class TestPodChaosMonkey(unittest.TestCase):
         """
         Unit test for list_pods function
 
-        :param api: mocked API version client
+        :param mock_api: mocked API version client
         """
         mock_api.list_namespaced_pod(NAMESPACE, watch=False).items = ITEMS
 
@@ -70,7 +70,7 @@ class TestPodChaosMonkey(unittest.TestCase):
         """
         Unit test for list_pods function to verify exception
 
-        :param api: mocked API version client
+        :param mock_api: mocked API version client
         """
         mock_api.list_namespaced_pod.side_effect = ApiException("Api exception")
 
@@ -81,14 +81,14 @@ class TestPodChaosMonkey(unittest.TestCase):
 
     @patch("random.choice")
     @patch("kubernetes.client.api.core_v1_api.CoreV1Api")
-    def test_delete_random_pod(self, mock_api, mock_choice_mock):
+    def test_delete_random_pod(self, mock_api, mock_random_choice):
         """
         Unit test for delete_random_pod function
 
-        :param api: mocked API version client
-        :param choice_mock: mocked choice to simulate random.choice
+        :param mock_api: mocked API version client
+        :param mock_random_choice: mocked choice to simulate random.choice
         """
-        mock_choice_mock.return_value = POD2
+        mock_random_choice.return_value = POD2
 
         _ = delete_random_pod(mock_api, NAMESPACE, ITEMS)
 
@@ -104,7 +104,7 @@ class TestPodChaosMonkey(unittest.TestCase):
         """
         Unit test for delete_random_pod function with empty list
 
-        :param api: mocked API version client
+        :param mock_api: mocked API version client
         """
         _ = delete_random_pod(mock_api, NAMESPACE, [])
 
@@ -117,7 +117,7 @@ class TestPodChaosMonkey(unittest.TestCase):
         """
         Unit test for delete_random_pod function to verify exception
 
-        :param api: mocked API version client
+        :param mock_api: mocked API version client
         """
         mock_api.delete_namespaced_pod.side_effect = ApiException("Api exception")
 
@@ -133,7 +133,7 @@ class TestPodChaosMonkey(unittest.TestCase):
         Unit test for main function
 
         :param mock_config: mocked kube config
-        :param mock_v1api: mocked API version client
+        :param mock_api: mocked API version client
         """
         mock_config.return_value = MagicMock()
         mock_api.return_value = MagicMock()
