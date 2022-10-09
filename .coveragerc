@@ -1,8 +1,10 @@
 [run]
 omit =
     */app/tests*
+    */app/__init__.py
 [report]
 omit =
     */app/tests*
+    */app/__init__.py
 exclude_lines =
     if __name__ == .__main__.:
