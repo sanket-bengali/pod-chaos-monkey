@@ -106,7 +106,7 @@ class TestPodChaosMonkey(unittest.TestCase):
 
         :param api: mocked API version client
         """
-        _ = delete_random_pod(mock_api, NAMESPACE, {})
+        _ = delete_random_pod(mock_api, NAMESPACE, [])
 
         assert mock_api.delete_namespaced_pod.call_count == 0
         assert _ is None
