@@ -15,6 +15,8 @@ A simple application that deletes a randomly chosen pod from a given Kubernetes 
 * Build image with `docker build -t <repository>/pod-chaos-monkey:<tag> .`
 * docker login to the repository. For ex. for dockerhub `docker login -u <username> docker.io`
 * Push it to your registry `docker push <repository>/pod-chaos-monkey:<tag>`
+* Create secret for Docker registry `kubectl create secret generic regcred --from-file=.dockerconfigjson=<path/to/.docker/config.json> --type=kubernetes.io/dockerconfigjson`
+  * More info : [Create a secret based on existing credentials](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 * Update the image repository, tag and SHA256 in Deployment Yaml (for given environment) `./kustomize/overlay/dev/cronjob.yaml`
 * `schedule` field in the cronjob.yaml is used to specify the Cron expression. For ex. `schedule: "* * * * *"` runs a job every minute.
 * More info on Cronjobs : 
