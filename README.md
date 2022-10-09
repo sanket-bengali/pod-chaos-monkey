@@ -2,8 +2,9 @@
 A simple application that deletes a randomly chosen pod from a given Kubernetes namespace on given schedule
 
 ## Pre-requisites
-* A Kubernetes cluster
-  * For ex. [minikube](https://minikube.sigs.k8s.io/docs/start/)
+* Install [Docker desktop](https://docs.docker.com/get-docker/)
+* A Kubernetes cluster ex. [minikube](https://minikube.sigs.k8s.io/docs/start/)
+* Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * An application running in **workloads** namespace
   * For ex. start an **nginx** deployment with `kubectl apply -f workload`
 
@@ -26,6 +27,7 @@ A simple application that deletes a randomly chosen pod from a given Kubernetes 
 * Verify the jobs (executed by the cronjob) `kubectl get job -n pod-chaos-monkey`
 * Wait for the Pod to become Completed `kubectl get po -n pod-chaos-monkey`
 * Check Pod logs `kubectl logs <pod-id> -n pod-chaos-monkey`
+* Verify random Pod is getting deleted (based on AGE) in the given namespace `kubectl get po -n workloads` 
 
 Below are pod_chaos_monkey application options (injected as environment variables to the K8s cronjob) :
 

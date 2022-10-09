@@ -41,7 +41,7 @@ def load_k8s_config():
         sys.exit(1)
 
 
-def list_pods(api, namespace) -> dict:
+def list_pods(api, namespace):
     """
     List pods in a single namespace
 
